@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+
 import java.io.InputStream;
 import java.sql.Date;
 
@@ -162,10 +163,9 @@ public class MqttV3Executor implements MqttCallback {
         ObjectMapper objectMapper = new ObjectMapper();
         Result result = objectMapper.readValue(resultStr, Result.class);
 
-        //获取配置文件的输入流
         InputStream inputStream = Resources.getResourceAsStream("db.xml");
         MybatisSqlSessionFactoryBuilder builder = new MybatisSqlSessionFactoryBuilder();
-        //通过配置文件获取session工厂
+        //获取session工厂
         SqlSessionFactory sessionFactory = builder.build(inputStream);
         //获取一个session会话
         SqlSession session = sessionFactory.openSession();
